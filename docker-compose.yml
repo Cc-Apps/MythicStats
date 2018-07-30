@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: postgres:10.4
+    volumes:
+      # Windows: docker volume create mythic_stats_postgresql
+      - mythic_stats_postgresql:/var/lib/postgresql/data
+      # Mac
+      #- ./tmp/db:/var/lib/postgresql/data
+  web:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/MythicStats
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+# Windows
+volumes:
+  mythic_stats_postgresql:
+    external: true
