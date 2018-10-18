@@ -7,3 +7,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+puts "Seeding Affixes"
+
+affixes_json = ActiveSupport::JSON.decode(File.read("db/seeds/affixes.json"))
+
+affixes_json["affixes"].each do |affix|
+  Affix.find_or_create_by(affix)
+end
